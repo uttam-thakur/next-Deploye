@@ -64,11 +64,23 @@ import React, { useEffect, useState } from "react";
 import { userAccessToken, fetchUser } from "../utils/fetchDetails";
 import { useRouter } from "next/router";
 import Head from 'next/head';
+import { Button, Drawer, Radio, Space } from 'antd';
+
 
 const Nav = ({onLinkClick}) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState();
+
+  const [open, setOpen] = useState(false);
+  const [placement, setPlacement] = useState('left');
+  const showDrawer = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
+
 
   useEffect(() => {
     const accessToken = userAccessToken();
@@ -85,7 +97,276 @@ const Nav = ({onLinkClick}) => {
 
   return (
     <>
-      <header className="site-navbar py-4" role="banner">
+
+{/* <header className="site-navbar py-4" role="banner">
+      <div className="container">
+        <div className="d-flex align-items-center">
+         
+
+<Space>
+        <Button type="primary" onClick={showDrawer}>
+          open
+        </Button>
+      </Space>
+      <Drawer
+        title={user?.displayName}
+        placement="right"
+        closable={false}
+        onClose={onClose}
+        open={open}
+        key={placement}
+      >
+         <div className="site-logo">
+            <a href="#">
+              <img
+                src={user?.photoURL}
+                className=""
+                style={{ height: '30px', width: '30px', borderRadius: '5px' }}
+                alt=""
+              />
+            </a>
+          </div>
+
+          <div className="ml-auto">
+            <nav className="site-navigation position-relative text-right" role="navigation">
+              <div className="menu-container">
+                <ul className="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                  <Link href="/" legacyBehavior>
+                    <li className={router.pathname === '/' ? 'active' : ''}>
+                      <a className="nav-link" onClick={onLinkClick}>Home</a>
+                    </li>
+                  </Link>
+
+                  <Link href="/matches" legacyBehavior>
+                    <li className={router.pathname === '/matches' ? 'active' : ''}>
+                      <a className="nav-link" onClick={onLinkClick}>Matches</a>
+                    </li>
+                  </Link>
+
+                  <Link href="/players" legacyBehavior>
+                    <li className={router.pathname === '/players' ? 'active' : ''}>
+                      <a className="nav-link" onClick={onLinkClick}>Players</a>
+                    </li>
+                  </Link>
+
+                  <Link href="/blogg" legacyBehavior>
+                    <li className={router.pathname === '/blogg' ? 'active' : ''}>
+                      <a className="nav-link" onClick={onLinkClick}>Blog</a>
+                    </li>
+                  </Link>
+
+                  <Link href="/highlights" legacyBehavior>
+                    <li className={router.pathname === '/highlights' ? 'active' : ''}>
+                      <a className="nav-link" onClick={onLinkClick}>Highlights</a>
+                    </li>
+                  </Link>
+
+                  <Link href="/contact" legacyBehavior>
+                    <li className={router.pathname === '/contact' ? 'active' : ''}>
+                      <a className="nav-link" onClick={onLinkClick}>Contact</a>
+                    </li>
+                  </Link>
+                </ul>
+              </div>
+            </nav>
+            <IoLogOut
+              fontSize={25}
+              className="absolute top-3 right-3 cursor-pointer text-gray-600"
+              onClick={logout}
+            />
+
+            <a
+              href="#"
+              className="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white"
+            >
+              <span className="icon-menu h3 text-white"></span>
+            </a>
+          </div>
+    </Drawer>
+
+        </div>
+      </div>
+
+      <style jsx>{`
+        .menu-container {
+          overflow: hidden;
+        }
+          .site-menu.main-menu li {
+            width: calc(100% / 6);
+          }
+        }
+      `}</style>
+    </header> */}
+
+<header className="site-navbar py-4" role="banner">
+  <div className="container">
+    <div className="d-flex align-items-center">
+      <div className="site-logo">
+        <a href="#">
+          <img
+            src={user?.photoURL}
+            className=""
+            style={{ height: '30px', width: '30px', borderRadius: '5px' }}
+            alt=""
+          />
+        </a>
+      </div>
+      <div className="ml-auto">
+        <nav className="site-navigation position-relative text-right" role="navigation">
+          <div className="menu-container">
+            <ul className="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+              {/* Navigation links */}
+
+              <Link href="/" legacyBehavior>
+                    <li className={router.pathname === '/' ? 'active' : ''}>
+                      <a className="nav-link" onClick={onLinkClick}>Home</a>
+                    </li>
+                  </Link>
+
+                  <Link href="/matches" legacyBehavior>
+                    <li className={router.pathname === '/matches' ? 'active' : ''}>
+                      <a className="nav-link" onClick={onLinkClick}>Matches</a>
+                    </li>
+                  </Link>
+
+                  <Link href="/players" legacyBehavior>
+                    <li className={router.pathname === '/players' ? 'active' : ''}>
+                      <a className="nav-link" onClick={onLinkClick}>Players</a>
+                    </li>
+                  </Link>
+
+                  <Link href="/blogg" legacyBehavior>
+                    <li className={router.pathname === '/blogg' ? 'active' : ''}>
+                      <a className="nav-link" onClick={onLinkClick}>Blog</a>
+                    </li>
+                  </Link>
+
+                  <Link href="/highlights" legacyBehavior>
+                    <li className={router.pathname === '/highlights' ? 'active' : ''}>
+                      <a className="nav-link" onClick={onLinkClick}>Highlights</a>
+                    </li>
+                  </Link>
+
+                  <Link href="/contact" legacyBehavior>
+                    <li className={router.pathname === '/contact' ? 'active' : ''}>
+                      <a className="nav-link" onClick={onLinkClick}>Contact</a>
+                    </li>
+                  </Link>
+            </ul>
+          </div>
+        </nav>
+        <IoLogOut
+          fontSize={25}
+          className="absolute top-3 right-3 cursor-pointer text-gray-600"
+          onClick={logout}
+        />
+
+        <a
+          href="#"
+          className="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white"
+        >
+          <span className="icon-menu h3 text-white"></span>
+        </a>
+
+        {/* Open button for mobile */}
+        <div className="d-lg-none">
+          <Button type="primary" onClick={showDrawer}>
+            Open
+          </Button>
+          <Drawer
+            title={user?.displayName}
+            placement="right"
+            closable={false}
+            onClose={onClose}
+            open={open}
+            key={placement}
+          >
+            {/* Content inside the Drawer */}
+            <div className="site-logo">
+              <a href="#">
+                <img
+                  src={user?.photoURL}
+                  className=""
+                  style={{ height: '30px', width: '30px', borderRadius: '5px' }}
+                  alt=""
+                />
+              </a>
+            </div>
+            <div className="ml-auto">
+              <nav className="site-navigation position-relative text-right" role="navigation">
+                <div className="menu-container">
+                  <ul className="site-menu main-menu js-clone-nav mr-auto d-block d-lg-none">
+                    {/* Navigation links */}
+
+                    <Link href="/" legacyBehavior>
+                    <li className={router.pathname === '/' ? 'active' : ''}>
+                      <a className="nav-link" onClick={onLinkClick}>Home</a>
+                    </li>
+                  </Link>
+
+                  <Link href="/matches" legacyBehavior>
+                    <li className={router.pathname === '/matches' ? 'active' : ''}>
+                      <a className="nav-link" onClick={onLinkClick}>Matches</a>
+                    </li>
+                  </Link>
+
+                  <Link href="/players" legacyBehavior>
+                    <li className={router.pathname === '/players' ? 'active' : ''}>
+                      <a className="nav-link" onClick={onLinkClick}>Players</a>
+                    </li>
+                  </Link>
+
+                  <Link href="/blogg" legacyBehavior>
+                    <li className={router.pathname === '/blogg' ? 'active' : ''}>
+                      <a className="nav-link" onClick={onLinkClick}>Blog</a>
+                    </li>
+                  </Link>
+
+                  <Link href="/highlights" legacyBehavior>
+                    <li className={router.pathname === '/highlights' ? 'active' : ''}>
+                      <a className="nav-link" onClick={onLinkClick}>Highlights</a>
+                    </li>
+                  </Link>
+
+                  <Link href="/contact" legacyBehavior>
+                    <li className={router.pathname === '/contact' ? 'active' : ''}>
+                      <a className="nav-link" onClick={onLinkClick}>Contact</a>
+                    </li>
+                  </Link>
+                  </ul>
+                </div>
+              </nav>
+              <IoLogOut
+                fontSize={25}
+                className="absolute top-3 right-3 cursor-pointer text-gray-600"
+                onClick={logout}
+              />
+            </div>
+          </Drawer>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style jsx>{`
+    .menu-container {
+      overflow: hidden;
+    }
+    .site-menu.main-menu li {
+      width: calc(100% / 6);
+    }
+  `}</style>
+</header>
+
+
+
+    </>
+  );
+};
+
+export default Nav;
+
+      {/* <header className="site-navbar py-4" role="banner">
         <div className="container">
           <div className="d-flex align-items-center">
             <div className="site-logo">
@@ -101,7 +382,7 @@ const Nav = ({onLinkClick}) => {
             <div className="ml-auto">
               <nav className="site-navigation position-relative text-right" role="navigation">
                 <ul className="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                  <Link href="/" legacyBehavior>
+                  <Link href="/" legacyBehavior >
                     <li className={router.pathname === '/' ? 'active' : ''}>
                       <a className="nav-link" onClick={onLinkClick}>Home</a>
                     </li>
@@ -153,14 +434,9 @@ const Nav = ({onLinkClick}) => {
             </div>
           </div>
         </div>
-      </header>
-    </>
-  );
-};
+      </header> */}
 
-export default Nav;
-
-
+{/* code for responsive */}
 
 // with only one loader at middle
 

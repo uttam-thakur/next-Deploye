@@ -65,13 +65,36 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Nav from "./nav";
 import Link from "next/link";
+import moment from "moment";
 import { IoLogOut } from "react-icons/io5";
 import { HashLoader } from 'react-spinners';
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTodos} from "./redux/slice/homeApi";
+
+import { fetchNextMatch} from "./redux/slice/homeNextMatch";
+import { fetchNews} from "./redux/slice/homeNews";
 
 // import NextMatch from "./nextMatch";
 const Index = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useDispatch();
+    const state = useSelector((state) => state);
+  
+    console.log("State-------->", state);
+  const lastMatch = state?.todo?.data?.matches&&state?.todo?.data?.matches[state?.todo?.data?.matches.length-1]
+const lastNews = state?.nextMatche?.data?.response?.results.slice(-3)
+  console.log("news",lastNews );
+    useEffect(()=>{
+        dispatch(fetchTodos())
+    },[])
 
+    useEffect(()=>{
+        dispatch(fetchNextMatch())
+    },[])
+
+    useEffect(()=>{
+        dispatch(fetchNews())
+    },[])
     const handleLinkClick = () => {
       setIsLoading(true);
     };
@@ -183,29 +206,20 @@ const Index = () => {
                         <div class="col-lg-12">
 
                             <div class="d-flex team-vs">
-                                <span class="score">4-1</span>
+                                <span class="score">{lastMatch?.score?.fullTime?.away}-{lastMatch?.score?.fullTime?.home}</span>
                                 <div class="team-1 w-50">
                                     <div class="team-details w-100 text-center">
-                                        <img src="https://themewagon.github.io/soccer/images/logo_1.png" alt="Image" class="img-fluid" />
-                                        <h3>LA LEGA <span>(win)</span></h3>
-                                        <ul class="list-unstyled">
-                                            <li>Anja Landry (7)</li>
-                                            <li>Eadie Salinas (12)</li>
-                                            <li>Ashton Allen (10)</li>
-                                            <li>Baxter Metcalfe (5)</li>
-                                        </ul>
+                                        <img src={lastMatch?.awayTeam?.crest}
+                                         alt="Image" class="img-fluid" />
+                                        <h3>{lastMatch?.awayTeam?.name} </h3>
+                                       
                                     </div>
                                 </div>
                                 <div class="team-2 w-50">
                                     <div class="team-details w-100 text-center">
-                                        <img src="https://themewagon.github.io/soccer/images/logo_1.png" alt="Image" class="img-fluid" />
-                                        <h3>JUVENDU <span>(loss)</span></h3>
-                                        <ul class="list-unstyled">
-                                            <li>Macauly Green (3)</li>
-                                            <li>Arham Stark (8)</li>
-                                            <li>Stephan Murillo (9)</li>
-                                            <li>Ned Ritter (5)</li>
-                                        </ul>
+                                        <img src={lastMatch?.homeTeam?.crest} alt="Image" class="img-fluid" />
+                                        <h3>{lastMatch?.homeTeam?.name} </h3>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -213,82 +227,53 @@ const Index = () => {
                     </div>
                 </div>
 
-
                 <div class="latest-news">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12 title-section">
+                    <div class="container" >
+                        <div class="row" >
+                            <div class="col-12 title-section" >
                                 <h2 class="heading"> Latest News</h2>
                             </div>
                         </div>
+
                         <div class="row no-gutters">
                             <div class="col-md-4">
-                                <div class="post-entry">
+
+                     
+{lastNews?.map((item)=>{
+    return(
+        <>
+    
+                                <div class="post-entry" style={{float:"left"}} >
                                     <a href="#">
-                                        <img src="https://themewagon.github.io/soccer/images/logo_1.png" alt="Image" class="img-fluid" />
+                                    <img src={item.fields.thumbnail?item.fields.thumbnail:"https://themewagon.github.io/soccer/images/logo_1.png"} alt=""  />
+
+                                     
                                     </a>
                                     <div class="caption">
                                         <div class="caption-inner">
-                                            <h3 class="mb-3">Romolu to stay at Real Nadrid?</h3>
+                                            <h3 class="mb-3">{item.fields.headline}</h3>
                                             <div class="author d-flex align-items-center">
                                                 <div class="img mb-2 mr-3">
                                                     <img src="https://themewagon.github.io/soccer/images/logo_1.png" alt="" />
                                                 </div>
                                                 <div class="text">
-                                                    <h4>Mellissa Allison</h4>
-                                                    <span>May 19, 2020 &bullet; Sports</span>
+                                                    <h4>{item.fields.byline}</h4>
+                                                    <span>{moment(item.fields.lastModified).format("MMM DD, YYYY")} &bullet; {item.fields.publication}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="post-entry">
-                                    <a href="#">
-                                        <img src="https://themewagon.github.io/soccer/images/logo_1.png" alt="Image" class="img-fluid" />
-                                    </a>
-                                    <div class="caption">
-                                        <div class="caption-inner">
-                                            <h3 class="mb-3">Kai Nets Double To Secure Comfortable Away Win</h3>
-                                            <div class="author d-flex align-items-center">
-                                                <div class="img mb-2 mr-3">
-                                                    <img src="https://themewagon.github.io/soccer/images/logo_1.png" alt="" />
-                                                </div>
-                                                <div class="text">
-                                                    <h4>Mellissa Allison</h4>
-                                                    <span>May 19, 2020 &bullet; Sports</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="post-entry">
-                                    <a href="#">
-                                        <img src="https://themewagon.github.io/soccer/images/logo_1.png" alt="Image" class="img-fluid" />
-                                    </a>
-                                    <div class="caption">
-                                        <div class="caption-inner">
-                                            <h3 class="mb-3">Dogba set for Juvendu return?</h3>
-                                            <div class="author d-flex align-items-center">
-                                                <div class="img mb-2 mr-3">
-                                                    <img src="https://themewagon.github.io/soccer/images/logo_1.png" alt="" />
-                                                </div>
-                                                <div class="text">
-                                                    <h4>Mellissa Allison</h4>
-                                                    <span>May 19, 2020 &bullet; Sports</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                </>
+
+)
+})}
+                            </div>                       
                         </div>
 
                     </div>
                 </div>
+
 {/* here we put next match data */}
      {/* <NextMatch/> */}
 
@@ -419,107 +404,6 @@ const Index = () => {
 </div>
 
 
-                <div class="site-section">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-6 title-section">
-                                <h2 class="heading">Videos</h2>
-                            </div>
-                            <div class="col-6 text-right">
-                                <div class="custom-nav">
-                                    <a href="#" class="js-custom-prev-v2"><span class="icon-keyboard_arrow_left"></span></a>
-                                    <span></span>
-                                    <a href="#" class="js-custom-next-v2"><span class="icon-keyboard_arrow_right"></span></a>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="owl-4-slider owl-carousel">
-                            <div class="item">
-                                <div class="video-media">
-                                    <img src="images/img_1.jpg" alt="Image" class="img-fluid" />
-                                    <a href="https://vimeo.com/139714818" class="d-flex play-button align-items-center" data-fancybox>
-                                        <span class="icon mr-3">
-                                            <span class="icon-play"></span>
-                                        </span>
-                                        <div class="caption">
-                                            <h3 class="m-0">Dogba set for Juvendu return?</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="video-media">
-                                    <img src="images/img_2.jpg" alt="Image" class="img-fluid" />
-                                    <a href="https://vimeo.com/139714818" class="d-flex play-button align-items-center" data-fancybox>
-                                        <span class="icon mr-3">
-                                            <span class="icon-play"></span>
-                                        </span>
-                                        <div class="caption">
-                                            <h3 class="m-0">Kai Nets Double To Secure Comfortable Away Win</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="video-media">
-                                    <img src="images/img_3.jpg" alt="Image" class="img-fluid" />
-                                    <a href="https://vimeo.com/139714818" class="d-flex play-button align-items-center" data-fancybox>
-                                        <span class="icon mr-3">
-                                            <span class="icon-play"></span>
-                                        </span>
-                                        <div class="caption">
-                                            <h3 class="m-0">Romolu to stay at Real Nadrid?</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <div class="video-media">
-                                    <img src="images/img_1.jpg" alt="Image" class="img-fluid" />
-                                    <a href="https://vimeo.com/139714818" class="d-flex play-button align-items-center" data-fancybox>
-                                        <span class="icon mr-3">
-                                            <span class="icon-play"></span>
-                                        </span>
-                                        <div class="caption">
-                                            <h3 class="m-0">Dogba set for Juvendu return?</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="video-media">
-                                    <img src="images/img_2.jpg" alt="Image" class="img-fluid" />
-                                    <a href="https://vimeo.com/139714818" class="d-flex play-button align-items-center" data-fancybox>
-                                        <span class="icon mr-3">
-                                            <span class="icon-play"></span>
-                                        </span>
-                                        <div class="caption">
-                                            <h3 class="m-0">Kai Nets Double To Secure Comfortable Away Win</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="video-media">
-                                    <img src="images/img_3.jpg" alt="Image" class="img-fluid" />
-                                    <a href="https://vimeo.com/139714818" class="d-flex play-button align-items-center" data-fancybox>
-                                        <span class="icon mr-3">
-                                            <span class="icon-play"></span>
-                                        </span>
-                                        <div class="caption">
-                                            <h3 class="m-0">Romolu to stay at Real Nadrid?</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
 
                 <div class="container site-section">
                     <div class="row">

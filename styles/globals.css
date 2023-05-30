@@ -988,20 +988,20 @@ body {
 	.custom-table tbody tr:last-child td {
 	  border: none; }
   
-  .footer-section {
+  .footersection {
 	padding: 70px 0;
 	font-size: 14px;
 	color: rgba(255, 255, 255, 0.5);
 	background: #1a1e25; }
-	.footer-section .widget h3 {
+	.footersection .widget h3 {
 	  color: #fff;
 	  font-size: 18px;
 	  margin-bottom: 20px; }
-	.footer-section .widget .links li {
+	.footersection .widget .links li {
 	  margin-bottom: 10px; }
-	  .footer-section .widget .links li a {
+	  .footersection .widget .links li a {
 		color: rgba(255, 255, 255, 0.5); }
-		.footer-section .widget .links li a:hover {
+		.footersection .widget .links li a:hover {
 		  color: #ee1e46; }
   
   .custom-nav a {

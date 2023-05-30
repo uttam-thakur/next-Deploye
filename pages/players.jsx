@@ -22,7 +22,6 @@ const Players = () => {
 
     const handleLinkClick = () => {
         setIsLoading(true);
-        console.log("players");
       };
     const handleSearch = () => {
         setIsLoading(true);
@@ -173,7 +172,7 @@ const Players = () => {
                             <div className="col-lg-5 ml-auto">
                                 <h1 className="text-white">UCL And All Match Event</h1>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, molestias repudiandae pariatur.</p>
-                                <div id="date-countdown"></div>
+                                {/* <div id="date-countdown"></div> */}
                                
                             </div>
                         </div>

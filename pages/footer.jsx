@@ -2,9 +2,7 @@ import Head from "next/head";
 
 const Footer = () => {
     return (
-        // <footer className="footer">
-        //   <p>&copy; 2023 My Website. All rights reserved to Bhookhad.</p>
-        // </footer>
+     
 <>
 <Head>
                  <meta charset="utf-8" />
@@ -52,15 +50,14 @@ const Footer = () => {
     <script src="js/jquery.sticky.js"></script>
     <script src="js/jquery.mb.YTPlayer.min.js"></script>
     <script src="js/main.js"></script>
-      {/* <title></title> */}
     </Head>
-        <footer class="footer-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="widget mb-3">
+        <footer className="footersection">
+        <div className="container">
+            <div className="row">
+                <div className="col-lg-3">
+                    <div className="widget mb-3">
                         <h3>News</h3>
-                        <ul class="list-unstyled links">
+                        <ul className="list-unstyled links">
                             <li><a href="#">All</a></li>
                             <li><a href="#">Club News</a></li>
                             <li><a href="#">Media Center</a></li>
@@ -69,10 +66,10 @@ const Footer = () => {
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="widget mb-3">
+                <div className="col-lg-3">
+                    <div className="widget mb-3">
                         <h3>Tickets</h3>
-                        <ul class="list-unstyled links">
+                        <ul className="list-unstyled links">
                             <li><a href="#">Online Ticket</a></li>
                             <li><a href="#">Payment and Prices</a></li>
                             <li><a href="#">Contact &amp; Booking</a></li>
@@ -81,10 +78,11 @@ const Footer = () => {
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="widget mb-3">
+                
+                <div className="col-lg-3">
+                    <div className="widget mb-3">
                         <h3>Matches</h3>
-                        <ul class="list-unstyled links">
+                        <ul className="list-unstyled links">
                             <li><a href="#">Standings</a></li>
                             <li><a href="#">World Cup</a></li>
                             <li><a href="#">La Lega</a></li>
@@ -94,10 +92,10 @@ const Footer = () => {
                     </div>
                 </div>
 
-                <div class="col-lg-3">
-                    <div class="widget mb-3">
+                <div className="col-lg-3">
+                    <div className="widget mb-3">
                         <h3>Social</h3>
-                        <ul class="list-unstyled links">
+                        <ul className="list-unstyled links">
                             <li><a href="#">Twitter</a></li>
                             <li><a href="#">Facebook</a></li>
                             <li><a href="#">Instagram</a></li>
@@ -108,16 +106,12 @@ const Footer = () => {
 
             </div>
 
-            <div class="row text-center">
-                <div class="col-md-12">
-                    <div class=" pt-5">
+            <div className="row text-center">
+                <div className="col-md-12">
+                    <div className=" pt-5">
                         <p>
-
-                            {/* <script>
-                                document.write(new Date().getFullYear());
-                            </script> */}
                             Copyright &copy;
-                             All rights reserved to Bhookhad. <i class="icon-heart"
+                             All rights reserved to Bhookhad. <i className="icon-heart"
                                 aria-hidden="true"></i>
 
                         </p>
@@ -127,6 +121,10 @@ const Footer = () => {
             </div>
         </div>
     </footer>
+
+
+
+
                                 </>
       );
 }

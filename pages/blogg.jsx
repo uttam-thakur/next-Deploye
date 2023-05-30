@@ -170,6 +170,7 @@ import Nav from "./nav";
 import { HashLoader } from 'react-spinners';
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { Avatar, Card, Button, Modal, Row, Col } from 'antd';
+import Footer from './footer';
 const { Meta } = Card;
 
 export const getStaticProps = async () => {
@@ -220,7 +221,6 @@ const Blog = ({ data }) => {
           name="description"
           content="Web site created using create-react-app"
         />
-        {/* Rest of the Head component content */}
         <title>Blog Page</title>
       </Head>
       <Nav onLinkClick={handleLinkClick} />
@@ -257,12 +257,14 @@ const Blog = ({ data }) => {
       )}
 
       <div className="site-wrap">
+
         <div className="site-mobile-menu site-navbar-target">
           <div className="site-mobile-menu-header">
             <div className="site-mobile-menu-close">
               <span className="icon-close2 js-menu-toggle"></span>
             </div>
           </div>
+          
           <div className="site-mobile-menu-body"></div>
         </div>
         <header className="site-navbar py-4" role="banner">
@@ -301,6 +303,7 @@ const Blog = ({ data }) => {
                   );
                 })}
             </Row>
+                {/* <Footer/> */}
           </div>
         </div>
       </div>
@@ -344,6 +347,7 @@ const Blog = ({ data }) => {
           margin-bottom: 10px;
         }
       `}</style>
+
 
     </div>
   );
